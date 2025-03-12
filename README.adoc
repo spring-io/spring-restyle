@@ -1,0 +1,4 @@
+= Spring Format Rewrite
+
+A project that uses https://docs.openrewrite.org/[OpenRewrite] to automatically format code to conform to Spring's conventions.
+The project will incrementally add automation to fix rules with the goal of eventually automating fixes for all fixes.
