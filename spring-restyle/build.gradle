@@ -1,0 +1,37 @@
+plugins {
+	id 'java'
+	id "org.openrewrite.build.recipe-library-base" version "latest.release"
+	id "io.spring.security.release" version "1.0.1"
+	id "io.spring.security.maven" version "1.0.1"
+	id 'publish-conventions'
+}
+
+group = "io.spring.restyle"
+description = "Rewrite recipes."
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// The bom version can also be set to a specific version
+	// https://github.com/openrewrite/rewrite-recipe-bom/releases
+	implementation(platform("org.openrewrite.recipe:rewrite-recipe-bom:3.4.0"))
+
+	implementation("org.openrewrite:rewrite-java")
+	implementation("org.openrewrite.recipe:rewrite-java-dependencies")
+	implementation("org.openrewrite:rewrite-yaml")
+	implementation("org.openrewrite.meta:rewrite-analysis")
+	implementation("org.assertj:assertj-core:3.27.3")
+	runtimeOnly("org.openrewrite:rewrite-java-17")
+
+	// The RewriteTest class needed for testing recipes
+	testImplementation("org.openrewrite:rewrite-test")
+
+	// Need to have a slf4j binding to see any output enabled from the parser.
+	runtimeOnly("ch.qos.logback:logback-classic:1.5.17")
+
+	// For recipe testing
+	testRuntimeOnly("org.springframework:spring-core:6.2.4")
+	testRuntimeOnly("org.springframework.security:spring-security-core:6.4.3")
+}

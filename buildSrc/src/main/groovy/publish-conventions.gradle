@@ -1,0 +1,38 @@
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = "Spring Restyle"
+                description = "Spring Restyle is a WIP to fix errors reported by Spring Java Format"
+                url = "https://github.com/spring-io/spring-restyle"
+                inceptionYear = '2025'
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "rwinch"
+                        name = "Rob Winch"
+                    }
+                }
+                scm {
+                    connection = "https://github.com/spring-io/spring-restest.git"
+                    developerConnection = "scm:git@github.com:spring-io/spring-restest.git"
+                    url = "https://github.com/spring-io/spring-restest"
+                }
+            }
+        }
+    }
+}
+
+if (!project.version.contains('-')) {
+    project.tasks.publishArtifacts.dependsOn 'publishToOssrh'
+}
