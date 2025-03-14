@@ -21,7 +21,6 @@ dependencies {
 	implementation("org.openrewrite:rewrite-java")
 	implementation("org.openrewrite.recipe:rewrite-java-dependencies")
 	implementation("org.openrewrite:rewrite-yaml")
-	implementation("org.assertj:assertj-core:3.27.3")
 	runtimeOnly("org.openrewrite:rewrite-java-17")
 
 	// The RewriteTest class needed for testing recipes
@@ -33,4 +32,6 @@ dependencies {
 	// For recipe testing
 	testRuntimeOnly("org.springframework:spring-core:6.2.4")
 	testRuntimeOnly("org.springframework.security:spring-security-core:6.4.3")
+
+	testImplementation("org.assertj:assertj-core:3.27.3")
 }
