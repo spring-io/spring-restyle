@@ -1,4 +1,4 @@
-= Spring Format Rewrite
+= Spring Restyle
 
-A project that uses https://docs.openrewrite.org/[OpenRewrite] to automatically format code to conform to Spring's conventions.
+A project that uses https://docs.openrewrite.org/[OpenRewrite] to automatically fix the style of code to conform to https://github.com/spring-io/spring-javaformat[Spring Java Format].
 The project will incrementally add automation to fix rules with the goal of eventually automating fixes for all fixes.
