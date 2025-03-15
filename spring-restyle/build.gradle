@@ -19,7 +19,6 @@ dependencies {
 	implementation(platform("org.openrewrite.recipe:rewrite-recipe-bom:3.4.0"))
 
 	implementation("org.openrewrite:rewrite-java")
-	implementation("org.openrewrite.recipe:rewrite-java-dependencies")
 	implementation("org.openrewrite:rewrite-yaml")
 	runtimeOnly("org.openrewrite:rewrite-java-17")
 
