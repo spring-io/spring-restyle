@@ -2,3 +2,91 @@
 
 A project that uses https://docs.openrewrite.org/[OpenRewrite] to automatically fix the style of code to conform to https://github.com/spring-io/spring-javaformat[Spring Java Format].
 The project will incrementally add automation to fix rules with the goal of eventually automating fixes for all fixes.
+
+== Configuration
+
+Spring Restyle is implemented using OpenRewrite.
+To use it in your projects, you can leverage the https://docs.openrewrite.org/reference/gradle-plugin-configuration[OpenRewrite Gradle plugin] and https://docs.openrewrite.org/reference/rewrite-maven-plugin[OpenRewrite Maven plugin.
+You then need to add the `io.spring.restyle:spring-restyle` jar to your project, and activate the `io.spring.Style` OpenRewrite style and the `io.spring.Format` format Recipe.
+Details can be found below.
+
+=== Gradle
+
+To use Spring Restyle with Gradle, you can use the https://docs.openrewrite.org/reference/gradle-plugin-configuration[OpenRewrite Gradle plugin].
+An outline of the configuration can be found below:
+
+.build.gradle
+[source,groovy]
+----
+plugins {
+    id "java"
+    // replace with the latest version https://docs.openrewrite.org/reference/gradle-plugin-configuration
+    id "org.openrewrite.rewrite" version"7.2.0"
+}
+
+ext['restyle.inceptionYear'] = '2002'
+ext['restyle.projectRootPackage'] = 'org.springframework.security'
+
+rewrite {
+    activeRecipe('io.spring.Format')
+    activeStyle('io.spring.Style')
+}
+
+// Ensure a repository is declared that the rewrite core libraries can be resolved from
+repositories {
+    mavenCentral()
+    // If you want to use spring-restyle SNAPSHOTs you need to add the Spring SNAPSHOT repository
+    maven { url 'https://repo.spring.io/snapshot'}
+}
+
+dependencies {
+    rewrite('io.spring.restyle:spring-restyle:0.0.1-SNAPSHOT')
+}
+----
+
+Then you can invoke `./gradlew rewriteRun`
+
+=== Maven
+
+To use Spring Restyle with Gradle, you can use the https://docs.openrewrite.org/reference/rewrite-maven-plugin[OpenRewrite Maven plugin].
+An outline of the configuration can be found below:
+
+.pom.xml
+[source,xml]
+----
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.openrewrite.maven</groupId>
+        <artifactId>rewrite-maven-plugin</artifactId>
+        <version>6.3.1</version>
+        <configuration>
+          <activeRecipes>
+            <recipe>io.spring.Format</recipe>
+          </activeRecipes>
+          <activeStyles>
+            <style>io.spring.Style</style>
+          </activeStyles>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>io.spring.restyle</groupId>
+            <artifactId>spring-restyle</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <!-- if you are using a SNAPSHOT of spring-restyle you need to add the Spring SNAPSHOT repo -->
+    <repository>
+      <id>spring-snapshot</id>
+      <url>https://repo.spring.io/snapshot</url>
+    </repository>
+  </repositories>
+</project>
+----
+
+Then you can invoke `mvn rewrite:run`
